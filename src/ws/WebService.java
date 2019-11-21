@@ -1,8 +1,15 @@
 package ws;
 
 
+import java.util.List;
+import java.util.ArrayList;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
 
 import dao.ClienteFacade;
 import entity.Cliente;
@@ -21,7 +28,7 @@ public class WebService {
 	@PUT
 	@Path("/deleteCliente")
 	@Produces({MediaType.APPLICATION_JSON})
-	public String deleteU(@QueryParam("idCliente")int idCliente){
+	public String delete(@QueryParam("idCliente")int idCliente){
 		if(idCliente != 0) {
 			this.c = cf.findId(idCliente);
 			cf.delete(c);
@@ -30,6 +37,7 @@ public class WebService {
 			return "error";
 		}
 	}
+
 	@POST
 	@Path("/guardarCliente")
 	@Produces({MediaType.APPLICATION_JSON})
@@ -49,19 +57,35 @@ public class WebService {
 				return "ocurrio un problema";
 			}
 	}
+	@GET
+	@Path("/listaCliente")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String clientesAll() {
+		List<Cliente>lista= new ArrayList<Cliente>();
+		lista=cf.mostrar();
+		
+		Gson gson = new Gson();
+		String data= gson.toJson(lista);
+		JsonArray jsonArray= new JsonParser().parse(data).getAsJsonArray();
+		String resultado=gson.toJson(jsonArray);
+		
+		return resultado;
+		
+	}
+	@PUT
+	@Path("/modificarCliente")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String udpate(@QueryParam("idcliente")int id,@QueryParam("nombre")String nombre) {
+		if(id!=0) {
+		this.c=cf.findId(id);
+		
+		cf.update(c);
+		return "dato modificado";
+	}else {
+		return "error";
+	}
+	}
 	
 	
 	
-//	@POST
-//	@Path("/guardarCliente")
-//	@Produces({MediaType.APPLICATION_JSON})
-//	public String guardarCliente(@QueryParam("nombre")String nombre,@QueryParam("apellido")String apellido,
-//			@QueryParam("dirrecion")String dirrecion) {
-//			if(cf.create(new Cliente(apellido, nombre,dirrecion))) {
-//				
-//				return "cliente ingresado";
-//			}else {
-//				return "ocurrio un problema";
-//			}
-//	}
 }

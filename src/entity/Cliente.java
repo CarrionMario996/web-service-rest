@@ -21,7 +21,6 @@ public class Cliente implements Serializable {
 	private String genero;
 	private String nombre;
 	private String telefono;
-	private List<Viaje> viajes;
 
 	public Cliente() {
 	}
@@ -126,31 +125,6 @@ public class Cliente implements Serializable {
 
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
-	}
-
-
-	//bi-directional many-to-one association to Viaje
-	@OneToMany(mappedBy="cliente")
-	public List<Viaje> getViajes() {
-		return this.viajes;
-	}
-
-	public void setViajes(List<Viaje> viajes) {
-		this.viajes = viajes;
-	}
-
-	public Viaje addViaje(Viaje viaje) {
-		getViajes().add(viaje);
-		viaje.setCliente(this);
-
-		return viaje;
-	}
-
-	public Viaje removeViaje(Viaje viaje) {
-		getViajes().remove(viaje);
-		viaje.setCliente(null);
-
-		return viaje;
 	}
 
 }
