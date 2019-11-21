@@ -10,8 +10,12 @@ import entity.Cliente;
 @Path("/WSCliente")
 public class WebService {
 
-	Cliente c = new Cliente();
-	ClienteFacade cf = new ClienteFacade();
+	private Cliente c ;
+	private ClienteFacade cf ;
+	public WebService() {
+		cf=new ClienteFacade();
+		c=new Cliente();
+	}
 	
 	
 	@PUT
@@ -26,4 +30,38 @@ public class WebService {
 			return "error";
 		}
 	}
+	@POST
+	@Path("/guardarCliente")
+	@Produces({MediaType.APPLICATION_JSON})
+	public String guardarCliente(@QueryParam("nombre")String nombre,
+								@QueryParam("apellido")String apellido,
+								@QueryParam("telefono")String telefono,						
+								@QueryParam("dui")String dui,
+								@QueryParam("email")String email,
+								@QueryParam("dirrecion")String dirrecion,
+								@QueryParam("genero")String genero
+								
+								) {
+			if(cf.create(new Cliente(nombre,apellido, telefono,dui,email, dirrecion, genero))) {
+				
+				return "cliente ingresado";
+			}else {
+				return "ocurrio un problema";
+			}
+	}
+	
+	
+	
+//	@POST
+//	@Path("/guardarCliente")
+//	@Produces({MediaType.APPLICATION_JSON})
+//	public String guardarCliente(@QueryParam("nombre")String nombre,@QueryParam("apellido")String apellido,
+//			@QueryParam("dirrecion")String dirrecion) {
+//			if(cf.create(new Cliente(apellido, nombre,dirrecion))) {
+//				
+//				return "cliente ingresado";
+//			}else {
+//				return "ocurrio un problema";
+//			}
+//	}
 }

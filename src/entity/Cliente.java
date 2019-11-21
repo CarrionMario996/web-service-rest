@@ -27,6 +27,33 @@ public class Cliente implements Serializable {
 	}
 
 
+//	public Cliente(String apellido, String dirrecion, String dui, String email, String genero,
+//			String nombre, String telefono) {
+//		super();
+//		this.apellido = apellido;
+//		this.dirrecion = dirrecion;
+//		this.dui = dui;
+//		this.email = email;
+//		this.genero = genero;
+//		this.nombre = nombre;
+//		this.telefono = telefono;
+//	}
+	
+	
+
+	public Cliente( String nombre,String apellido, String telefono,String dui,String email,String dirrecion,String genero) {
+		super();
+		
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.telefono = telefono;
+		this.dui = dui;
+		this.email = email;
+		this.dirrecion = dirrecion;
+		this.genero = genero;
+	}
+
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="codigo_cliente")
