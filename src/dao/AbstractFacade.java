@@ -66,10 +66,12 @@ public abstract class AbstractFacade<T> {
 
 	public void update(T entity) {
 		EntityManager em = getEntityManager();
+	
 		try {
 			em.getTransaction().begin();
 			em.merge(entity);
 			em.getTransaction().commit();
+			
 		} catch (Exception e) {
 			if (em.getTransaction() != null && em.getTransaction().isActive()) {
 				em.getTransaction().rollback();
@@ -79,6 +81,7 @@ public abstract class AbstractFacade<T> {
 				em.close();
 			}
 		}
+		
 	}
 
 }

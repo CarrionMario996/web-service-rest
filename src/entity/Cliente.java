@@ -1,14 +1,19 @@
 package entity;
 
-import java.io.Serializable;
+import java.io.Serializable
+;
+
 import javax.persistence.*;
-import java.util.List;
+
+
+
 
 
 /**
  * The persistent class for the cliente database table.
  * 
  */
+
 @Entity
 @NamedQuery(name="Cliente.findAll", query="SELECT c FROM Cliente c")
 public class Cliente implements Serializable {

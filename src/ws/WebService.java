@@ -2,6 +2,7 @@ package ws;
 
 
 import java.util.List;
+
 import java.util.ArrayList;
 
 import javax.ws.rs.*;
@@ -75,17 +76,35 @@ public class WebService {
 	@PUT
 	@Path("/modificarCliente")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String udpate(@QueryParam("idcliente")int id,@QueryParam("nombre")String nombre) {
-		if(id!=0) {
-		this.c=cf.findId(id);
-		
-		cf.update(c);
-		return "dato modificado";
-	}else {
-		return "error";
+	public String udpate(@QueryParam("idCliente")int idCliente,
+			@QueryParam("nombre")String nombre,
+			@QueryParam("apellido")String apellido,
+			@QueryParam("telefono")String telefono,						
+			@QueryParam("dui")String dui,
+			@QueryParam("email")String email,
+			@QueryParam("dirrecion")String dirrecion,
+			@QueryParam("genero")String genero) 
+	{
+		if(idCliente != 0) {
+			c.setCodigoCliente(idCliente);
+			c.setNombre(nombre);
+			c.setApellido(apellido);
+			c.setTelefono(telefono);
+			c.setDui(dui);
+			c.setEmail(email);
+			c.setDirrecion(dirrecion);
+			c.setGenero(genero);
+			cf.update(c);
+			return "datos modificado";
+		}else {
+			return "error";
+		}
 	}
-	}
-	
-	
-	
 }
+		
+	
+	
+
+	
+	
+
